@@ -18,76 +18,76 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
     };
 
     "Mod+Return" = {
-      action = "spawn:kitty";
+      action = "spawn kitty";
       repeat = false;
     };
 
     "Mod+B" = {
-      action = "spawn:helium";
+      action = "spawn helium";
       repeat = false;
     };
 
     "Mod+E" = {
-      action = "spawn:nautilus --new-window";
+      action = "spawn nautilus --new-window";
       repeat = false;
     };
 
     "Mod+G" = {
-      action = "spawn:noctalia msg panel-toggle alexander/game-launcher:browser";
+      action = "spawn noctalia msg panel-toggle alexander/game-launcher:browser";
       repeat = false;
     };
 
     # Noctalia shell
     "Mod+Space" = {
-      action = "spawn:noctalia msg panel-toggle launcher";
+      action = "spawn noctalia msg panel-toggle launcher";
       repeat = false;
     };
 
     "Mod+S" = {
-      action = "spawn:noctalia msg panel-toggle control-center";
+      action = "spawn noctalia msg panel-toggle control-center";
       repeat = false;
     };
 
     "Mod+Comma" = {
-      action = "spawn:noctalia msg settings-toggle";
+      action = "spawn noctalia msg settings-toggle";
       repeat = false;
     };
 
     "Mod+Shift+W" = {
-      action = "spawn:noctalia msg panel-toggle wallpaper";
+      action = "spawn noctalia msg panel-toggle wallpaper";
       repeat = false;
     };
 
     "XF86PowerOff" = {
-      action = "spawn:noctalia msg panel-toggle session";
+      action = "spawn noctalia msg panel-toggle session";
       repeat = false;
     };
 
     # Audio & brightness. Routed through Noctalia so its OSDs show, and repeat
     # while held; `allow_when_locked` keeps them working on the lock screen.
     "XF86AudioRaiseVolume" = {
-      action = "spawn:noctalia msg volume-up";
+      action = "spawn noctalia msg volume-up";
       allow_when_locked = true;
     };
 
     "XF86AudioLowerVolume" = {
-      action = "spawn:noctalia msg volume-down";
+      action = "spawn noctalia msg volume-down";
       allow_when_locked = true;
     };
 
     "XF86AudioMute" = {
-      action = "spawn:noctalia msg volume-mute";
+      action = "spawn noctalia msg volume-mute";
       allow_when_locked = true;
       repeat = false;
     };
 
     "XF86MonBrightnessUp" = {
-      action = "spawn:noctalia msg brightness-up";
+      action = "spawn noctalia msg brightness-up";
       allow_when_locked = true;
     };
 
     "XF86MonBrightnessDown" = {
-      action = "spawn:noctalia msg brightness-down";
+      action = "spawn noctalia msg brightness-down";
       allow_when_locked = true;
     };
 
@@ -157,7 +157,7 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
       cooldown_ms = 150;
     };
 
-    "Alt+Tab" = "spawn:noctalia msg window-switcher hold";
+    "Alt+Tab" = "spawn noctalia msg window-switcher hold";
 
     "Mod+WheelRight" = "window-focus-right";
     "Mod+WheelLeft" = "window-focus-left";
@@ -169,27 +169,27 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
     "Mod+Ctrl+Shift+WheelUp" = "column-move-left";
 
     # Five workspaces, named 一..五 in settings.nix; 6..9 have no binds.
-    "Mod+1" = "workspace-switch:1";
-    "Mod+2" = "workspace-switch:2";
-    "Mod+3" = "workspace-switch:3";
-    "Mod+4" = "workspace-switch:4";
-    "Mod+5" = "workspace-switch:5";
+    "Mod+1" = "workspace-switch 1";
+    "Mod+2" = "workspace-switch 2";
+    "Mod+3" = "workspace-switch 3";
+    "Mod+4" = "workspace-switch 4";
+    "Mod+5" = "workspace-switch 5";
 
-    "Mod+Ctrl+1" = "column-move-to-workspace:1";
-    "Mod+Ctrl+2" = "column-move-to-workspace:2";
-    "Mod+Ctrl+3" = "column-move-to-workspace:3";
-    "Mod+Ctrl+4" = "column-move-to-workspace:4";
-    "Mod+Ctrl+5" = "column-move-to-workspace:5";
+    "Mod+Ctrl+1" = "column-move-to-workspace 1";
+    "Mod+Ctrl+2" = "column-move-to-workspace 2";
+    "Mod+Ctrl+3" = "column-move-to-workspace 3";
+    "Mod+Ctrl+4" = "column-move-to-workspace 4";
+    "Mod+Ctrl+5" = "column-move-to-workspace 5";
 
     "Mod+Tab" = "workspace-previous";
 
     # Layout
     "Mod+C" = "column-center";
 
-    "Mod+Minus" = "window-modify-primary-extent:-0.1";
-    "Mod+Equal" = "window-modify-primary-extent:0.1";
-    "Mod+Shift+Minus" = "window-modify-secondary-extent:-0.1";
-    "Mod+Shift+Equal" = "window-modify-secondary-extent:0.1";
+    "Mod+Minus" = "window-modify-primary-extent -0.1";
+    "Mod+Equal" = "window-modify-primary-extent 0.1";
+    "Mod+Shift+Minus" = "window-modify-secondary-extent -0.1";
+    "Mod+Shift+Equal" = "window-modify-secondary-extent 0.1";
 
     "Mod+T" = {
       action = "window-toggle-floating";
@@ -213,19 +213,29 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
 
     # niri's expand-column-to-available-width.
     "Mod+Ctrl+F" = {
-      action = "window-set-primary-extent:1.0";
+      action = "window-set-primary-extent 1.0";
+      repeat = false;
+    };
+
+    "Mod+Shift+L" = {
+      action = "spawn noctalia msg plugin 0lucasmatheus/awwwall:mirror all toggle";
+      repeat = false;
+    };
+
+    "Mod+Shift+G" = {
+      action = "spawn noctalia msg panel-toggle alexander/game-launcher:original";
       repeat = false;
     };
 
     # Screenshots, through Noctalia so its editor and output policy apply
     # (niri's own screenshot actions have no umbriel equivalent).
     "Ctrl+Shift+1" = {
-      action = "spawn:noctalia msg screenshot-region";
+      action = "spawn noctalia msg screenshot-region";
       repeat = false;
     };
 
     "Ctrl+Shift+2" = {
-      action = "spawn:noctalia msg screenshot-fullscreen";
+      action = "spawn noctalia msg screenshot-fullscreen";
       repeat = false;
     };
   };

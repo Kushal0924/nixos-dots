@@ -15,6 +15,5 @@ in
     lib.optional apps.krita.enable pkgs.krita
     ++ lib.optional apps.libreoffice.enable pkgs.libreoffice
     ++ lib.optional apps.obsidian.enable pkgs.obsidian
-    ++ lib.optional apps.spotify.enable pkgs.spotify
     ++ lib.optional apps.vesktop.enable pkgs.vesktop;
 }

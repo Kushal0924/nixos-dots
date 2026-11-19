@@ -43,6 +43,22 @@
     millennium = {
       url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      # The packages/nix flake still pins millennium-src to the pre-SteamRT3
+      # release (3858d60a), which has no MILLENNIUM_LINUX_X64 support and fails
+      # to build (LuaJIT gets -m32 in the 64-bit tree). Point it at the same
+      # revision as the packaging so the RT3 source is used.
+      inputs.millennium-src.url = "github:SteamClientHomebrew/Millennium/dee8e60f689b4f42b04eea0a4f4f063ecd8609aa";
+      inputs.millennium-src.flake = false;
+    };
+
+    sonora = {
+      url = "github:sonorahq/sonora";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    bonfire = {
+      url = "github:honklam/bonfire";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     nhx.url = "github:Ra77a3l3-jar/nhx";

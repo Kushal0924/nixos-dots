@@ -17,7 +17,7 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
 
     output."eDP-1" = {
       mode = "1920x1080@60";
-      scale = 1.33;
+      scale = 1.25;
       workspace_axis = "horizontal";
       workspaces = [
         "一"
@@ -31,10 +31,10 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
     appearance = {
       prefer_no_csd = true;
 
-      border_width = 2;
-      outer_border_width = 4;
+      border_width = 3;
+      outer_border_width = 0;
 
-      corner_radius = 10;
+      corner_radius = 0;
 
       shadow.enabled = false;
       drag_opacity = 1;
@@ -42,7 +42,7 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
       title_bar = {
         mode = "forced";
         button_position = "left";
-        button_corner_radius = 2;
+        button_corner_radius = 0;
         font = "Annotation Mono 10";
       };
 
@@ -59,7 +59,7 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
     };
 
     layout = {
-      mode = "floating";
+      mode = "stacking";
       gap = 14;
 
       struts = {

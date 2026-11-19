@@ -19,7 +19,6 @@
     "ahci"
     "nvme"
     "usb_storage"
-    "usbhid"
     "sd_mod"
   ];
   boot.initrd.kernelModules = [ ];
@@ -27,24 +26,24 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/160fa396-290c-4556-8f5c-473b3dda826b";
+    device = "/dev/disk/by-uuid/93a12446-f9dc-40af-97de-3a6e0b502c3f";
     fsType = "btrfs";
   };
 
   fileSystems."/home" = {
-    device = "/dev/disk/by-uuid/160fa396-290c-4556-8f5c-473b3dda826b";
+    device = "/dev/disk/by-uuid/93a12446-f9dc-40af-97de-3a6e0b502c3f";
     fsType = "btrfs";
     options = [ "subvol=home" ];
   };
 
   fileSystems."/nix" = {
-    device = "/dev/disk/by-uuid/160fa396-290c-4556-8f5c-473b3dda826b";
+    device = "/dev/disk/by-uuid/93a12446-f9dc-40af-97de-3a6e0b502c3f";
     fsType = "btrfs";
     options = [ "subvol=nix" ];
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7AA4-5BEA";
+    device = "/dev/disk/by-uuid/B270-4084";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -53,7 +52,7 @@
   };
 
   swapDevices = [
-    { device = "/dev/disk/by-uuid/a81363fc-d478-40c0-84ad-59d85600d6f7"; }
+    { device = "/dev/disk/by-uuid/3af597a7-8390-4471-a973-4491140d12ef"; }
   ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";

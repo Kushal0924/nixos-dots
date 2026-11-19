@@ -23,6 +23,9 @@ in
       browser = {
         enable = feature "browser";
       };
+      flatpak = {
+        enable = feature "Flatpak";
+      };
       gaming = {
         enable = feature "gaming";
       };
@@ -40,6 +43,12 @@ in
     # GUI applications, split per app: `modules/home/apps` (Home Manager) and
     # `modules/system/packages/apps` (system-wide).
     apps = {
+      bonfire = {
+        enable = app "Bonfire";
+      };
+      easyeffects = {
+        enable = app "EasyEffects";
+      };
       fastfetch = {
         enable = app "fastfetch";
       };
@@ -60,6 +69,9 @@ in
       };
       obsidian = {
         enable = app "Obsidian";
+      };
+      sonora = {
+        enable = app "Sonora";
       };
       spotify = {
         enable = app "Spotify";

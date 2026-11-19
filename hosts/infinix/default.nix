@@ -23,6 +23,9 @@
       browser = {
         enable = true;
       };
+      flatpak = {
+        enable = true;
+      };
       gaming = {
         enable = true;
       };
@@ -38,6 +41,12 @@
     };
 
     apps = {
+      bonfire = {
+        enable = true;
+      };
+      easyeffects = {
+        enable = true;
+      };
       fastfetch = {
         enable = true;
       };
@@ -59,7 +68,7 @@
       obsidian = {
         enable = true;
       };
-      spotify = {
+      sonora = {
         enable = true;
       };
       vesktop = {

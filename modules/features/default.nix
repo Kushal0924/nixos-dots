@@ -3,6 +3,7 @@
 {
   imports = [
     ./browser.nix
+    ./flatpak.nix
     ./gaming.nix
     ./jupyter.nix
     ./python.nix

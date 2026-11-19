@@ -11,11 +11,16 @@
 {
   imports = [
     inputs.nix-webapps.homeManagerModules.default
+    inputs.sonora.homeModules.default
     inputs.nhx.homeManagerModules.nhx
+    ./bonfire-module.nix
+    ./bonfire.nix
+    ./easyeffects.nix
     ./fastfetch.nix
     ./helix.nix
     ./mime.nix
     ./nautilus.nix
+    ./sonora.nix
     ./vscode.nix
     ./webapps.nix
   ];

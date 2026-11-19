@@ -88,7 +88,7 @@ imports = [
         ├── default.nix           identity, session path, stateVersion, HM imports
         ├── packages.nix          awww, btop, fnm, grc, pokeget-rs
         ├── shell.nix             fish, fnm, grc
-        ├── apps/                 fastfetch, mime, nautilus, vscode, webapps
+        ├── apps/                 bonfire, fastfetch, mime, nautilus, vscode, webapps
         └── desktop/
             ├── noctalia.nix      session shell: theme, wallpaper
             ├── misc.nix          xdg-terminal-exec default (kitty), dconf window-buttons
@@ -258,6 +258,7 @@ asks for.
 | `dotfiles.features.gaming.enable` | `modules/features/gaming.nix` (Millennium Steam, GameMode, 32-bit graphics, xpadneo) | off |
 | `dotfiles.features.python.enable` | `modules/features/python.nix` (python3 + numpy/onnxruntime/pillow, `uv`) | off |
 | `dotfiles.features.virtualization.enable` | `modules/features/virtualization.nix` (libvirt, QEMU/KVM, SPICE, virt-manager, `kvm`/`libvirtd` groups) | off |
+| `dotfiles.apps.bonfire.enable` | `modules/home/apps/bonfire.nix` (Bonfire new-tab page on `127.0.0.1:8420`) | off |
 | `dotfiles.apps.fastfetch.enable` | `modules/home/apps/fastfetch.nix` | off |
 | `dotfiles.apps.krita.enable` | `modules/system/packages/apps.nix` (Krita) | off |
 | `dotfiles.apps.libreoffice.enable` | `modules/system/packages/apps.nix` (LibreOffice) | off |

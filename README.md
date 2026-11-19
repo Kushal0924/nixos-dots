@@ -65,9 +65,12 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 │       ├── shell.nix             fish config, fnm, grc plugin
 │       ├── apps/
 │       │   ├── default.nix
+│       │   ├── bonfire.nix        Bonfire new-tab page (local server + Noctalia palette)
+│       │   ├── easyeffects.nix    EasyEffects audio effects daemon
 │       │   ├── fastfetch.nix
 │       │   ├── mime.nix          MIME defaults (Celluloid/Loupe/Evince)
 │       │   ├── nautilus.nix      nautilus-python + open-in-kitty script
+│       │   ├── sonora.nix        Sonora music streaming client
 │       │   ├── vscode.nix        VS Code + extensions
 │       │   └── webapps.nix       nix-webapps (YouTube, WhatsApp as isolated web apps)
 │       └── desktop/
@@ -91,7 +94,7 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 
 | File | Purpose |
 | --- | --- |
-| `flake.nix` | Declares inputs (nixpkgs-unstable, home-manager, treefmt-nix, umbriel, noctalia, noctalia-greeter, nix-webapps, helium, millennium), a `nixosConfigurations.<host>` for every directory in `hosts/`, the treefmt-based `formatter`, a `checks.lint` derivation, and a dev shell with deadnix/nixfmt/statix. Each host also gets `modules/options.nix` and `inputs` as special args. |
+| `flake.nix` | Declares inputs (nixpkgs-unstable, home-manager, treefmt-nix, umbriel, noctalia, noctalia-greeter, nix-webapps, helium, millennium, sonora, bonfire), a `nixosConfigurations.<host>` for every directory in `hosts/`, the treefmt-based `formatter`, a `checks.lint` derivation, and a dev shell with deadnix/nixfmt/statix. Each host also gets `modules/options.nix` and `inputs` as special args. |
 | `flake.lock` | Exact input revisions. Regenerated automatically whenever inputs change. |
 | `statix.toml` | Excludes generated `hosts/*/hardware-configuration.nix` from linting. |
 
@@ -109,12 +112,15 @@ it asks for.
 | `dotfiles.features.jupyter.enable` | `modules/features/jupyter.nix` |
 | `dotfiles.features.python.enable` | `modules/features/python.nix` |
 | `dotfiles.features.virtualization.enable` | `modules/features/virtualization.nix` |
+| `dotfiles.apps.bonfire.enable` | `modules/home/apps/bonfire.nix` |
+| `dotfiles.apps.easyeffects.enable` | `modules/home/apps/easyeffects.nix` |
 | `dotfiles.apps.fastfetch.enable` | `modules/home/apps/fastfetch.nix` |
 | `dotfiles.apps.krita.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.libreoffice.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.mime.enable` | `modules/home/apps/mime.nix` |
 | `dotfiles.apps.nautilus.enable` | `modules/home/apps/nautilus.nix` |
 | `dotfiles.apps.obsidian.enable` | `modules/system/packages/apps.nix` |
+| `dotfiles.apps.sonora.enable` | `modules/home/apps/sonora.nix` |
 | `dotfiles.apps.spotify.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.vesktop.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.vscode.enable` | `modules/home/apps/vscode.nix` |
@@ -170,9 +176,12 @@ and only their settings are gated.
 | `packages.nix` | User-profile packages: awww, btop, fnm, grc, pokeget-rs. |
 | `shell.nix` | fish enabled, greeting disabled, `fnm env --use-on-cd`, grc plugin. |
 | `apps/default.nix` | Imports the nix-webapps HM module plus one file per opt-in app. |
+| `apps/bonfire.nix` | `programs.bonfire` (`apps.bonfire`): serves a WebGL new-tab page on `127.0.0.1:8420` and registers its `bonfire.css` template with Noctalia, so the page follows the wallpaper palette. |
+| `apps/easyeffects.nix` | `services.easyeffects.enable` (`apps.easyeffects`): EasyEffects package plus its `easyeffects` user service, started with the graphical session. |
 | `apps/fastfetch.nix` | `programs.fastfetch.enable` (`apps.fastfetch`). |
 | `apps/mime.nix` | MIME defaults for Celluloid/Loupe/Evince (`apps.mime`). |
 | `apps/nautilus.nix` | nautilus-python and the `open-in-kitty` script (`apps.nautilus`). |
+| `apps/sonora.nix` | Sonora music streaming client from the `sonora` flake input (`apps.sonora`). |
 | `apps/vscode.nix` | VS Code with vscodevim + markdown-all-in-one (`apps.vscode`). |
 | `apps/webapps.nix` | nix-webapps: Helium as browser, isolated profiles, YouTube + WhatsApp desktop entries (`apps.webapps`). |
 | `desktop/noctalia.nix` | Noctalia shell settings: dark mode, Everforest community theme, wallpaper enabled. Every `desktop/*` module is behind `dotfiles.desktop`. |
@@ -183,6 +192,21 @@ and only their settings are gated.
 | `desktop/umbriel/rules.nix` | One window rule turns on blur behind every window (nothing is translucent — apps draw their own alpha) plus a floating Noctalia settings window at 600x400; layer rules blur the Noctalia panels (`blur_optimized = false`, `blur_ignore_alpha = 0.5`) and explicitly unblur the bar. |
 | `desktop/umbriel/animations.nix` | Umbriel curves: 150 ms windows-in (`ease_out_expo`) / windows-out (`ease_out_quad`), `spring:1,800` moves, `spring:1,1000` workspace switches, overview on the same springs. Border and unfocused-dim animations stay off. |
 | `desktop/umbriel/autostart.nix` | `general.autostart = [ "noctalia" ]`. |
+
+### Bonfire new tab
+
+With `dotfiles.apps.bonfire.enable`, the rebuild installs the `bonfire` flake
+input and starts a darkhttpd user service serving the page from
+`~/.local/share/bonfire` on `http://127.0.0.1:8420/`. Its `bonfire.css` template
+is registered under `programs.noctalia.settings.theme.templates.user.bonfire`,
+so each wallpaper change re-renders the palette into `colors.css` (already-open
+tabs pick it up within ~500 ms).
+
+Point a new-tab override extension — [New Tab
+Override](https://addons.mozilla.org/en-US/firefox/addon/new-tab-override/) with
+*Custom URL* — at `http://127.0.0.1:8420/`, and enable *Set focus to the web
+page instead of the address bar*. The service is `systemctl --user status
+bonfire`; its port lives in `modules/home/apps/bonfire.nix`.
 
 ---
 

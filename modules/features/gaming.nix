@@ -12,6 +12,7 @@ lib.mkIf config.dotfiles.features.gaming.enable {
 
   programs.steam = {
     enable = true;
+    protontricks.enable = true;
     package = pkgs.millennium-steam;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
@@ -52,10 +53,11 @@ lib.mkIf config.dotfiles.features.gaming.enable {
   environment.systemPackages = with pkgs; [
     # Launchers & Compatibility Layers
     bottles
-    lutris
     protonup-qt
     wineWow64Packages.staging
     winetricks
+    heroic
+    antimicrox
 
     # Performance & HUD Tools
     gamescope

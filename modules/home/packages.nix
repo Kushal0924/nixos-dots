@@ -10,6 +10,5 @@
     fnm
     grc
     pokeget-rs
-    spicetify-cli
   ];
 }
