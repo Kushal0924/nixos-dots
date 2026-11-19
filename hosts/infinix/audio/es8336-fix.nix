@@ -1,5 +1,8 @@
 # Out-of-tree snd-soc-sof_es8336 machine driver with the headphone GPIO
-# inversion removed. See ./patch/README.md for details.
+# inversion removed, DMI quirks for the Infinix laptops and an optional HDMI
+# FE PCM count override. Vendored from the es8326-fix-with-2hdmi branch of
+# https://github.com/hmtheboy154/dotfiles-infinix-es8326
+# Discussion: https://github.com/Abhinav5383/infinix-x2-audio-fix/issues/2
 {
   stdenv,
   lib,
@@ -8,7 +11,7 @@
 
 stdenv.mkDerivation {
   pname = "es8336-fix";
-  version = "1.0";
+  version = "2.0";
 
   src = ./patch;
 
