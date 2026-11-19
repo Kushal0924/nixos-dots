@@ -15,5 +15,6 @@ in
     lib.optional apps.krita.enable pkgs.krita
     ++ lib.optional apps.libreoffice.enable pkgs.libreoffice
     ++ lib.optional apps.obsidian.enable pkgs.obsidian
-    ++ lib.optional apps.vesktop.enable pkgs.vesktop;
+    ++ lib.optional apps.vesktop.enable pkgs.vesktop
+    ++ lib.optional apps.whatsapp-electron.enable pkgs.whatsapp-electron;
 }

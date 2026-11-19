@@ -88,7 +88,7 @@ imports = [
         ├── default.nix           identity, session path, stateVersion, HM imports
         ├── packages.nix          awww, btop, fnm, grc, pokeget-rs
         ├── shell.nix             fish, fnm, grc
-        ├── apps/                 bonfire, fastfetch, mime, nautilus, vscode, webapps
+        ├── apps/                 bonfire, fastfetch, mime, nautilus, vscode
         └── desktop/
             ├── noctalia.nix      session shell: theme, wallpaper
             ├── misc.nix          xdg-terminal-exec default (kitty), dconf window-buttons
@@ -268,7 +268,7 @@ asks for.
 | `dotfiles.apps.spotify.enable` | `modules/system/packages/apps.nix` (Spotify) | off |
 | `dotfiles.apps.vesktop.enable` | `modules/system/packages/apps.nix` (Vesktop) | off |
 | `dotfiles.apps.vscode.enable` | `modules/home/apps/vscode.nix` | off |
-| `dotfiles.apps.webapps.enable` | `modules/home/apps/webapps.nix` (YouTube, WhatsApp) | off |
+| `dotfiles.apps.whatsapp-electron.enable` | `modules/system/packages/apps.nix` (WhatsApp Electron) | off |
 
 Opting **out** is the same edit: delete the `enable = true;` line (or set it to
 `false`). Nothing else in the tree references the module, so the packages,
@@ -326,7 +326,7 @@ sudo nh os switch ~/.dotfiles#infinix
 * `imports` is **not** a normal option, so it can never live inside a
   conditional module — a module with `lib.mkIf { imports = …; }` fails to
   evaluate, and conditional *import* lists (`lib.optionals config.…`) cause
-  infinite recursion. That is why the greeter, nix-webapps and Umbriel modules
+  infinite recursion. That is why the greeter and Umbriel modules
   are imported unconditionally and only their *settings* are gated.
 
 ### Adding a new optional module

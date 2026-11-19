@@ -1,4 +1,4 @@
-# Helium is the system-wide browser (it is also what nix-webapps launches).
+# Helium is the system-wide browser.
 {
   config,
   inputs,

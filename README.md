@@ -72,8 +72,7 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 │       │   ├── mime.nix          MIME defaults (Celluloid/Loupe/Evince)
 │       │   ├── nautilus.nix      nautilus-python + open-in-kitty script
 │       │   ├── sonora.nix        Sonora music streaming client
-│       │   ├── vscode.nix        VS Code + extensions
-│       │   └── webapps.nix       nix-webapps (YouTube, WhatsApp as isolated web apps)
+│       │   └── vscode.nix        VS Code + extensions
 │       └── desktop/
 │           ├── default.nix
 │           ├── noctalia.nix      Noctalia shell: theme, wallpaper
@@ -95,7 +94,7 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 
 | File | Purpose |
 | --- | --- |
-| `flake.nix` | Declares inputs (nixpkgs-unstable, home-manager, treefmt-nix, umbriel, noctalia, noctalia-greeter, nix-webapps, helium, millennium, sonora, bonfire), a `nixosConfigurations.<host>` for every directory in `hosts/`, the treefmt-based `formatter`, a `checks.lint` derivation, and a dev shell with deadnix/nixfmt/statix. Each host also gets `modules/options.nix` and `inputs` as special args. |
+| `flake.nix` | Declares inputs (nixpkgs-unstable, home-manager, treefmt-nix, umbriel, noctalia, noctalia-greeter, helium, millennium, sonora, bonfire), a `nixosConfigurations.<host>` for every directory in `hosts/`, the treefmt-based `formatter`, a `checks.lint` derivation, and a dev shell with deadnix/nixfmt/statix. Each host also gets `modules/options.nix` and `inputs` as special args. |
 | `flake.lock` | Exact input revisions. Regenerated automatically whenever inputs change. |
 | `statix.toml` | Excludes generated `hosts/*/hardware-configuration.nix` from linting. |
 
@@ -125,13 +124,13 @@ it asks for.
 | `dotfiles.apps.spotify.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.vesktop.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.vscode.enable` | `modules/home/apps/vscode.nix` |
-| `dotfiles.apps.webapps.enable` | `modules/home/apps/webapps.nix` |
+| `dotfiles.apps.whatsapp-electron.enable` | `modules/system/packages/apps.nix` |
 
 NixOS modules read them from `config.dotfiles.…`; Home Manager modules read
 them from `osConfig.dotfiles.…`, which is how a NixOS option reaches the
 embedded Home Manager evaluation. Gated modules use `lib.mkIf`, and because
 `imports` is not a normal option it can never live inside a conditional module
-— that is why the greeter and nix-webapps modules are imported unconditionally
+— that is why the greeter module is imported unconditionally
 and only their settings are gated.
 
 ### Host layer (`hosts/infinix`)
@@ -191,14 +190,14 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | `services.nix` | NetworkManager, redistributable firmware, Bluetooth, power-profiles-daemon/upower/`HandlePowerKey = "ignore"`, and `security.polkit` plus the `polkit-gnome-authentication-agent-1` user unit. |
 | `users.nix` | Creates `${userName}` (normal user, fish shell, groups `wheel` + `networkmanager`, gets `tree`), and enables system-wide fish. Feature modules add their own groups (see `features/virtualization.nix`), so opting out never leaves a dangling group. |
 | `fonts.nix` | annotation-mono, JetBrains Mono Nerd Font, Departure Mono, Noto Color Emoji. |
-| `packages/*.nix` | `environment.systemPackages` grouped by purpose (see tree). `nix-ld.nix` also defines `programs.nix-ld` and its library list. `packages/apps.nix` holds the gated GUI apps. |
+| `packages/*.nix` | `environment.systemPackages` grouped by purpose (see tree). `nix-ld.nix` also defines `programs.nix-ld` and its library list. `packages/apps.nix` holds the gated GUI apps (krita, libreoffice, obsidian, spotify, vesktop, WhatsApp Electron). |
 
 ### `modules/features` — opt-in capabilities
 
 | File | Switch | Purpose |
 | --- | --- | --- |
 | `default.nix` | — | Aggregator imported by the host. |
-| `browser.nix` | `features.browser` | Installs Helium from the `helium` flake input (also the browser nix-webapps launches). |
+| `browser.nix` | `features.browser` | Installs Helium from the `helium` flake input. |
 | `gaming.nix` | `features.gaming` | Millennium overlay + Steam (remote play, dedicated server, LAN transfers firewall), GameMode with notifications, 32-bit graphics, `vm.max_map_count` sysctl, launchers/HUD tools, `hardware.xpadneo`. |
 | `jupyter.nix` | `features.jupyter` | A second `python3.withPackages` holding `jupyter`, `ipykernel` and the analysis stack (pandas, matplotlib, seaborn, scipy, scikit-learn, statsmodels). Kept out of `python.nix` so hosts that only script never build it; `ipykernel` is what makes the notebook kernel import the same stack as the server. |
 | `python.nix` | `features.python` | `python3.withPackages` (numpy, onnxruntime, pillow, pip, setuptools, wheel) and `uv`. |
@@ -211,7 +210,7 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | `default.nix` | HM entry point: `home.username`/`homeDirectory` from `userName`, `home.sessionPath` (`~/.local/bin`, `~/.npm-global/bin`), `home.stateVersion`, `programs.home-manager.enable`, and imports for `./apps`, `./desktop`, `./packages.nix`, `./shell.nix` plus the Noctalia and Umbriel HM modules (imported unconditionally; their settings are what `dotfiles.desktop` gates). |
 | `packages.nix` | User-profile packages: awww, btop, fnm, grc, pokeget-rs. |
 | `shell.nix` | fish enabled, greeting disabled, `fnm env --use-on-cd`, grc plugin. |
-| `apps/default.nix` | Imports the nix-webapps HM module plus one file per opt-in app. |
+| `apps/default.nix` | Imports one file per opt-in app. |
 | `apps/bonfire.nix` | `programs.bonfire` (`apps.bonfire`): serves a WebGL new-tab page on `127.0.0.1:8420` and registers its `bonfire.css` template with Noctalia, so the page follows the wallpaper palette. |
 | `apps/easyeffects.nix` | `services.easyeffects.enable` (`apps.easyeffects`): EasyEffects package plus its `easyeffects` user service, started with the graphical session. |
 | `apps/fastfetch.nix` | `programs.fastfetch.enable` (`apps.fastfetch`). |
@@ -219,7 +218,6 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | `apps/nautilus.nix` | nautilus-python and the `open-in-kitty` script (`apps.nautilus`). |
 | `apps/sonora.nix` | Sonora music streaming client from the `sonora` flake input (`apps.sonora`). |
 | `apps/vscode.nix` | VS Code with vscodevim + markdown-all-in-one (`apps.vscode`). |
-| `apps/webapps.nix` | nix-webapps: Helium as browser, isolated profiles, YouTube + WhatsApp desktop entries (`apps.webapps`). |
 | `desktop/noctalia.nix` | Noctalia shell settings: dark mode, Everforest community theme, wallpaper enabled. Every `desktop/*` module is behind `dotfiles.desktop`. |
 | `desktop/misc.nix` | `xdg-terminal-exec` default terminal = `kitty.desktop` and dconf `button-layout = ":"` (GNOME-style window controls on the left). |
 | `desktop/umbriel/default.nix` | Umbriel submodules behind `dotfiles.desktop`, with `programs.umbriel.package` installed by the system module (flake input build — no source build, no extra cache). |

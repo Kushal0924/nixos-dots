@@ -82,8 +82,8 @@ in
       vscode = {
         enable = app "VS Code";
       };
-      webapps = {
-        enable = app "nix-webapps";
+      whatsapp-electron = {
+        enable = app "WhatsApp Electron";
       };
     };
 

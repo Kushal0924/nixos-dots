@@ -77,7 +77,7 @@
       vscode = {
         enable = true;
       };
-      webapps = {
+      whatsapp-electron = {
         enable = true;
       };
     };

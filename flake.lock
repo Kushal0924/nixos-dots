@@ -155,29 +155,6 @@
         "type": "github"
       }
     },
-    "nix-webapps": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "treefmt-nix": [
-          "treefmt-nix"
-        ]
-      },
-      "locked": {
-        "lastModified": 1785283887,
-        "narHash": "sha256-cualKYLN01BOz8bWboUreh797sZKXVn0TiUEDiIlyHk=",
-        "owner": "AniviaFlome",
-        "repo": "nix-webapps",
-        "rev": "18c5e4e84110c077c62762ec5146910668fa9512",
-        "type": "github"
-      },
-      "original": {
-        "owner": "AniviaFlome",
-        "repo": "nix-webapps",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1786106723,
@@ -273,7 +250,6 @@
         "home-manager": "home-manager",
         "millennium": "millennium",
         "nhx": "nhx",
-        "nix-webapps": "nix-webapps",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
         "noctalia-greeter": "noctalia-greeter",
