@@ -67,7 +67,6 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 │       ├── apps/
 │       │   ├── default.nix
 │       │   ├── bonfire.nix        Bonfire new-tab page (local server + Noctalia palette)
-│       │   ├── easyeffects.nix    EasyEffects audio effects daemon
 │       │   ├── fastfetch.nix
 │       │   ├── mime.nix          MIME defaults (Celluloid/Loupe/Evince)
 │       │   ├── nautilus.nix      nautilus-python + open-in-kitty script
@@ -113,7 +112,6 @@ it asks for.
 | `dotfiles.features.python.enable` | `modules/features/python.nix` |
 | `dotfiles.features.virtualization.enable` | `modules/features/virtualization.nix` |
 | `dotfiles.apps.bonfire.enable` | `modules/home/apps/bonfire.nix` |
-| `dotfiles.apps.easyeffects.enable` | `modules/home/apps/easyeffects.nix` |
 | `dotfiles.apps.fastfetch.enable` | `modules/home/apps/fastfetch.nix` |
 | `dotfiles.apps.krita.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.libreoffice.enable` | `modules/system/packages/apps.nix` |
@@ -212,7 +210,6 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | `shell.nix` | fish enabled, greeting disabled, `fnm env --use-on-cd`, grc plugin. |
 | `apps/default.nix` | Imports one file per opt-in app. |
 | `apps/bonfire.nix` | `programs.bonfire` (`apps.bonfire`): serves a WebGL new-tab page on `127.0.0.1:8420` and registers its `bonfire.css` template with Noctalia, so the page follows the wallpaper palette. |
-| `apps/easyeffects.nix` | `services.easyeffects.enable` (`apps.easyeffects`): EasyEffects package plus its `easyeffects` user service, started with the graphical session. |
 | `apps/fastfetch.nix` | `programs.fastfetch.enable` (`apps.fastfetch`). |
 | `apps/mime.nix` | MIME defaults for Celluloid/Loupe/Evince (`apps.mime`). |
 | `apps/nautilus.nix` | nautilus-python and the `open-in-kitty` script (`apps.nautilus`). |

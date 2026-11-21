@@ -44,9 +44,6 @@
       bonfire = {
         enable = true;
       };
-      easyeffects = {
-        enable = true;
-      };
       fastfetch = {
         enable = true;
       };

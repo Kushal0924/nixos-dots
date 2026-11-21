@@ -46,9 +46,6 @@ in
       bonfire = {
         enable = app "Bonfire";
       };
-      easyeffects = {
-        enable = app "EasyEffects";
-      };
       fastfetch = {
         enable = app "fastfetch";
       };

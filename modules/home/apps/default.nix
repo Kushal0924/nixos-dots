@@ -11,7 +11,6 @@
     inputs.nhx.homeManagerModules.nhx
     ./bonfire-module.nix
     ./bonfire.nix
-    ./easyeffects.nix
     ./fastfetch.nix
     ./helix.nix
     ./mime.nix
