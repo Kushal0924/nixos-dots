@@ -58,6 +58,9 @@ in
       libreoffice = {
         enable = app "LibreOffice";
       };
+      microfetch = {
+        enable = app "microfetch";
+      };
       mime = {
         enable = app "MIME type defaults";
       };
@@ -79,8 +82,8 @@ in
       vscode = {
         enable = app "VS Code";
       };
-      whatsapp-electron = {
-        enable = app "WhatsApp Electron";
+      zapfast = {
+        enable = app "WhatsApp (ZapFast)";
       };
     };
 

@@ -24,11 +24,22 @@ lib.mkIf osConfig.dotfiles.apps.helix.enable {
     steel = {
       enable = true;
       lsp.enable = true; # Steel LSP for editing .scm files
+
+      # forest has forest-open (focus-aware) and forest-close, but no toggle
+      extra = ''
+        (define (forest-toggle)
+          (if (forest-snacks-active?)
+              (forest-close)
+              (forest-open)))
+      '';
     };
 
     settings = {
       theme = "noctalia";
       editor.lsp.display-messages = true;
+
+      # <space>e toggles the forest sidebar (visible -> hidden, hidden -> visible)
+      keys.normal.space.e = ":forest-toggle";
     };
 
     plugins.forest = {

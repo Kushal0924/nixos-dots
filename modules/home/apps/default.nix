@@ -13,6 +13,7 @@
     ./bonfire.nix
     ./fastfetch.nix
     ./helix.nix
+    ./microfetch.nix
     ./mime.nix
     ./nautilus.nix
     ./sonora.nix

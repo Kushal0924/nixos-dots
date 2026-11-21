@@ -67,7 +67,7 @@ imports = [
     ├── system/                   required everywhere
     │   ├── default.nix           aggregator + system.stateVersion + greeter/Umbriel imports
     │   ├── boot.nix              kernel (linuxPackages_latest), GRUB on EFI
-    │   ├── desktop.nix           umbriel, greeter, pipewire, libinput, dconf, xwayland
+    │   ├── desktop.nix           umbriel, greeter, pipewire, libinput, dconf, keyring, xwayland
     │   ├── fonts.nix             mono, nerd fonts, emoji
     │   ├── home-manager.nix      HM as a NixOS module, points at ../home
     │   ├── nix.nix               flakes features, allowUnfree, direnv
@@ -88,7 +88,7 @@ imports = [
         ├── default.nix           identity, session path, stateVersion, HM imports
         ├── packages.nix          awww, btop, fnm, grc, pokeget-rs
         ├── shell.nix             fish, fnm, grc
-        ├── apps/                 bonfire, fastfetch, mime, nautilus, vscode
+        ├── apps/                 bonfire, fastfetch, microfetch, mime, nautilus, vscode
         └── desktop/
             ├── noctalia.nix      session shell: theme, wallpaper
             ├── misc.nix          xdg-terminal-exec default (kitty), dconf window-buttons
@@ -262,13 +262,14 @@ asks for.
 | `dotfiles.apps.fastfetch.enable` | `modules/home/apps/fastfetch.nix` | off |
 | `dotfiles.apps.krita.enable` | `modules/system/packages/apps.nix` (Krita) | off |
 | `dotfiles.apps.libreoffice.enable` | `modules/system/packages/apps.nix` (LibreOffice) | off |
+| `dotfiles.apps.microfetch.enable` | `modules/home/apps/microfetch.nix` (microfetch in the user profile) | off |
 | `dotfiles.apps.mime.enable` | `modules/home/apps/mime.nix` (Celluloid/Loupe/Evince defaults) | off |
 | `dotfiles.apps.nautilus.enable` | `modules/home/apps/nautilus.nix` (nautilus-python, open-in-kitty) | off |
 | `dotfiles.apps.obsidian.enable` | `modules/system/packages/apps.nix` (Obsidian) | off |
 | `dotfiles.apps.spotify.enable` | `modules/system/packages/apps.nix` (Spotify) | off |
 | `dotfiles.apps.vesktop.enable` | `modules/system/packages/apps.nix` (Vesktop) | off |
 | `dotfiles.apps.vscode.enable` | `modules/home/apps/vscode.nix` | off |
-| `dotfiles.apps.whatsapp-electron.enable` | `modules/system/packages/apps.nix` (WhatsApp Electron) | off |
+| `dotfiles.apps.zapfast.enable` | `modules/system/packages/apps.nix` (WhatsApp via ZapFast) | off |
 
 Opting **out** is the same edit: delete the `enable = true;` line (or set it to
 `false`). Nothing else in the tree references the module, so the packages,

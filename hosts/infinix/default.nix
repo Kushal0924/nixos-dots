@@ -56,6 +56,9 @@
       libreoffice = {
         enable = true;
       };
+      microfetch = {
+        enable = true;
+      };
       mime = {
         enable = true;
       };
@@ -74,7 +77,7 @@
       vscode = {
         enable = true;
       };
-      whatsapp-electron = {
+      zapfast = {
         enable = true;
       };
     };

@@ -36,7 +36,7 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 │   ├── system/                   required on any host
 │   │   ├── default.nix           aggregates the files below + system.stateVersion
 │   │   ├── boot.nix               kernel (linuxPackages_latest) and GRUB on EFI
-│   │   ├── desktop.nix           umbriel, greeter, pipewire, dconf, xwayland (behind dotfiles.desktop)
+│   │   ├── desktop.nix           umbriel, greeter, pipewire, dconf, keyring, xwayland (behind dotfiles.desktop)
 │   │   ├── fonts.nix             system fonts (mono, nerd fonts, emoji)
 │   │   ├── home-manager.nix      HM as a NixOS module, points at ../home
 │   │   ├── nix.nix               flakes features, allowUnfree, direnv
@@ -68,6 +68,7 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 │       │   ├── default.nix
 │       │   ├── bonfire.nix        Bonfire new-tab page (local server + Noctalia palette)
 │       │   ├── fastfetch.nix
+│       │   ├── microfetch.nix    user-profile microfetch package
 │       │   ├── mime.nix          MIME defaults (Celluloid/Loupe/Evince)
 │       │   ├── nautilus.nix      nautilus-python + open-in-kitty script
 │       │   ├── sonora.nix        Sonora music streaming client
@@ -115,6 +116,7 @@ it asks for.
 | `dotfiles.apps.fastfetch.enable` | `modules/home/apps/fastfetch.nix` |
 | `dotfiles.apps.krita.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.libreoffice.enable` | `modules/system/packages/apps.nix` |
+| `dotfiles.apps.microfetch.enable` | `modules/home/apps/microfetch.nix` |
 | `dotfiles.apps.mime.enable` | `modules/home/apps/mime.nix` |
 | `dotfiles.apps.nautilus.enable` | `modules/home/apps/nautilus.nix` |
 | `dotfiles.apps.obsidian.enable` | `modules/system/packages/apps.nix` |
@@ -122,7 +124,7 @@ it asks for.
 | `dotfiles.apps.spotify.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.vesktop.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.vscode.enable` | `modules/home/apps/vscode.nix` |
-| `dotfiles.apps.whatsapp-electron.enable` | `modules/system/packages/apps.nix` |
+| `dotfiles.apps.zapfast.enable` | `modules/system/packages/apps.nix` |
 
 NixOS modules read them from `config.dotfiles.…`; Home Manager modules read
 them from `osConfig.dotfiles.…`, which is how a NixOS option reaches the
@@ -184,11 +186,11 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | `boot.nix` | `boot.kernelPackages = pkgs.linuxPackages_latest` and GRUB on EFI. |
 | `nix.nix` | Enables `nix-command`/`flakes` experimental features, `nixpkgs.config.allowUnfree`, and direnv with `loadInNixShell` and nix-direnv. |
 | `home-manager.nix` | Imports HM's NixOS module; `useGlobalPkgs`/`useUserPackages` on, backups named `*.backup`, `inputs` + `userName` passed through as special args, and the user's config set to `../home`. |
-| `desktop.nix` | The graphical session, behind `dotfiles.desktop`: `programs.umbriel` (flake build + its portal) and `pkgs.xwayland` for its X11 apps; noctalia-greeter display manager (cursor/keyboard settings, Umbriel as the only session), libinput, `programs.dconf.enable`, pipewire + pulse. |
+| `desktop.nix` | The graphical session, behind `dotfiles.desktop`: `programs.umbriel` (flake build + its portal) and `pkgs.xwayland` for its X11 apps; noctalia-greeter display manager (cursor/keyboard settings, Umbriel as the only session), libinput, `programs.dconf.enable`, `services.gnome.gnome-keyring` for the Secret Service API, pipewire + pulse. |
 | `services.nix` | NetworkManager, redistributable firmware, Bluetooth, power-profiles-daemon/upower/`HandlePowerKey = "ignore"`, and `security.polkit` plus the `polkit-gnome-authentication-agent-1` user unit. |
 | `users.nix` | Creates `${userName}` (normal user, fish shell, groups `wheel` + `networkmanager`, gets `tree`), and enables system-wide fish. Feature modules add their own groups (see `features/virtualization.nix`), so opting out never leaves a dangling group. |
 | `fonts.nix` | annotation-mono, JetBrains Mono Nerd Font, Departure Mono, Noto Color Emoji. |
-| `packages/*.nix` | `environment.systemPackages` grouped by purpose (see tree). `nix-ld.nix` also defines `programs.nix-ld` and its library list. `packages/apps.nix` holds the gated GUI apps (krita, libreoffice, obsidian, spotify, vesktop, WhatsApp Electron). |
+| `packages/*.nix` | `environment.systemPackages` grouped by purpose (see tree). `nix-ld.nix` also defines `programs.nix-ld` and its library list. `packages/apps.nix` holds the gated GUI apps (krita, libreoffice, obsidian, spotify, vesktop, WhatsApp via ZapFast). |
 
 ### `modules/features` — opt-in capabilities
 
@@ -211,16 +213,17 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | `apps/default.nix` | Imports one file per opt-in app. |
 | `apps/bonfire.nix` | `programs.bonfire` (`apps.bonfire`): serves a WebGL new-tab page on `127.0.0.1:8420` and registers its `bonfire.css` template with Noctalia, so the page follows the wallpaper palette. |
 | `apps/fastfetch.nix` | `programs.fastfetch.enable` (`apps.fastfetch`). |
+| `apps/microfetch.nix` | `pkgs.microfetch` in the user profile (`apps.microfetch`); no Home Manager module exists. |
 | `apps/mime.nix` | MIME defaults for Celluloid/Loupe/Evince (`apps.mime`). |
 | `apps/nautilus.nix` | nautilus-python and the `open-in-kitty` script (`apps.nautilus`). |
 | `apps/sonora.nix` | Sonora music streaming client from the `sonora` flake input (`apps.sonora`). |
 | `apps/vscode.nix` | VS Code with vscodevim + markdown-all-in-one (`apps.vscode`). |
-| `desktop/noctalia.nix` | Noctalia shell settings: dark mode, Everforest community theme, wallpaper enabled. Every `desktop/*` module is behind `dotfiles.desktop`. |
+| `desktop/noctalia.nix` | Noctalia shell settings: wallpaper enabled, the bar is translucent (`background_opacity = 0.5`) with compositor blur, and panels use the `glass` transparency mode. Every `desktop/*` module is behind `dotfiles.desktop`. |
 | `desktop/misc.nix` | `xdg-terminal-exec` default terminal = `kitty.desktop` and dconf `button-layout = ":"` (GNOME-style window controls on the left). |
 | `desktop/umbriel/default.nix` | Umbriel submodules behind `dotfiles.desktop`, with `programs.umbriel.package` installed by the system module (flake input build — no source build, no extra cache). |
-| `desktop/umbriel/settings.nix` | `eDP-1` (1920x1080@60, scale 1.33), scrolling layout (gaps 14, extents 0.33/0.67/0.95, centered focus), appearance (20 px radius, 2 px borders, no shadows/drag fade, blur on with `optimized` for cached xray-style blur), input (us layout, repeat, touchpad), cursor, environment variables, `include.optional` Noctalia template, cheatsheet off. |
+| `desktop/umbriel/settings.nix` | `eDP-1` (1920x1080@60, scale 1.25), stacking layout (gaps 14, extents 0.33/0.67/0.95, centered focus), appearance (square corners, 3 px borders, no shadows/drag fade, blur on with 6 passes and radius 15), input (us layout, repeat, touchpad), cursor, environment variables, `include.optional` Noctalia template, cheatsheet off. |
 | `desktop/umbriel/keybinds.nix` | The full bind set: `Mod+Return`/`Mod+Space`/`Mod+S`/`Mod+Shift+W`/`Mod+Comma` drive Noctalia panels, media keys drive Noctalia volume/brightness (also while locked), focus/move/workspaces/extent binds use Umbriel's `window-*`/`workspace-*` actions with `repeat`/`cooldown_ms`. |
-| `desktop/umbriel/rules.nix` | One window rule turns on blur behind every window (nothing is translucent — apps draw their own alpha) plus a floating Noctalia settings window at 600x400; layer rules blur the Noctalia panels (`blur_optimized = false`, `blur_ignore_alpha = 0.5`) and explicitly unblur the bar. |
+| `desktop/umbriel/rules.nix` | One window rule turns on blur behind every window and sets `opacity = 0.65` so the blur is clearly visible, with `blur_optimized = false` for live backdrop sampling, plus a floating Noctalia settings window at 600x400; layer rules blur the Noctalia panels (`blur_optimized = false`, `blur_ignore_alpha = 0.5`) and the bar (cached wallpaper blur). |
 | `desktop/umbriel/animations.nix` | Umbriel curves: 150 ms windows-in (`ease_out_expo`) / windows-out (`ease_out_quad`), `spring:1,800` moves, `spring:1,1000` workspace switches, overview on the same springs. Border and unfocused-dim animations stay off. |
 | `desktop/umbriel/autostart.nix` | `general.autostart = [ "noctalia" ]`. |
 

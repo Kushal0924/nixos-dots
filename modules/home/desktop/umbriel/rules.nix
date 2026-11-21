@@ -10,11 +10,14 @@
 lib.mkIf osConfig.dotfiles.desktop.enable {
   programs.umbriel.settings = {
     window_rule = [
-      # Blur behind every window — niri's global background-effect. Windows
-      # stay opaque (no opacity rule), so the blur only shows through where an
-      # application draws transparency itself.
+      # Backdrop blur behind every window. The opacity makes windows slightly
+      # translucent so the blur is actually visible; without it an opaque app
+      # covers the blurred backdrop completely. `blur_optimized = false` blurs
+      # the live content behind each window instead of the cached wallpaper.
       {
         blur = true;
+        opacity = 0.85;
+        blur_optimized = false;
       }
 
       # Floating Noctalia settings window.
@@ -40,11 +43,12 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
         blur_optimized = false;
       }
 
-      # The bar sits on the wallpaper and is not blurred at all (niri's
-      # `blur false`); later rules override earlier ones.
+      # The bar sits on the wallpaper, so it can use the cheaper cached
+      # wallpaper blur instead of sampling live content behind it.
       {
         match.namespace = "^noctalia-bar";
-        blur = false;
+        blur = true;
+        blur_optimized = true;
       }
     ];
   };

@@ -75,6 +75,13 @@ lib.mkIf config.dotfiles.desktop.enable {
 
   programs.dconf.enable = true;
 
+  # ZapFast (and anything else using libsecret) asks the Secret Service
+  # D-Bus API for a keyring. Without this module nothing owns
+  # org.freedesktop.secrets, so ZapFast fails with
+  # "The name is not activatable". The module installs the daemon, registers
+  # it for D-Bus activation and unlocks it through PAM at login.
+  services.gnome.gnome-keyring.enable = true;
+
   # Umbriel starts the real Xwayland for X11 applications.
   environment.systemPackages = [
     pkgs.xwayland

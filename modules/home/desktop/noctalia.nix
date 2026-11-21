@@ -14,10 +14,15 @@ lib.mkIf osConfig.dotfiles.desktop.enable {
         enabled = true;
       };
 
-      # The bar asks the compositor to blur behind it through the background
-      # effect protocol; umbriel turns the blur off for ^noctalia-bar in its
-      # layer rules, so stop asking for it at the source.
-      bar.default.compositor_blur = false;
+      # Blur the shell: the bar asks the compositor for backdrop blur and stays
+      # slightly translucent so Umbriel's blur is visible through it. Panels
+      # use the glass transparency mode for the same effect.
+      bar.default = {
+        compositor_blur = true;
+        background_opacity = 0.5;
+      };
+
+      shell.panel.transparency_mode = "glass";
 
       # Workspace pills spell out the names 一..五 instead of 1..5. Kanji are
       # single characters, so the default max_label_chars = 1 shows them whole.
