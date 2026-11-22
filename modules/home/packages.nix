@@ -5,6 +5,7 @@
 
 {
   home.packages = with pkgs; [
+    ani-cli
     awww
     btop
     fnm

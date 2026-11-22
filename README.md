@@ -62,7 +62,7 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 │   │
 │   └── home/                     Home Manager (per user)
 │       ├── default.nix           entry point: identity, session path, stateVersion, HM imports
-│       ├── packages.nix          user-profile packages (awww, btop, fnm, grc, pokeget-rs)
+│       ├── packages.nix          user-profile packages (ani-cli, awww, btop, fnm, grc, pokeget-rs)
 │       ├── shell.nix             fish config, fnm, grc plugin
 │       ├── apps/
 │       │   ├── default.nix
@@ -71,7 +71,6 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 │       │   ├── microfetch.nix    user-profile microfetch package
 │       │   ├── mime.nix          MIME defaults (Celluloid/Loupe/Evince)
 │       │   ├── nautilus.nix      nautilus-python + open-in-kitty script
-│       │   ├── sonora.nix        Sonora music streaming client
 │       │   └── vscode.nix        VS Code + extensions
 │       └── desktop/
 │           ├── default.nix
@@ -94,7 +93,7 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 
 | File | Purpose |
 | --- | --- |
-| `flake.nix` | Declares inputs (nixpkgs-unstable, home-manager, treefmt-nix, umbriel, noctalia, noctalia-greeter, helium, millennium, sonora, bonfire), a `nixosConfigurations.<host>` for every directory in `hosts/`, the treefmt-based `formatter`, a `checks.lint` derivation, and a dev shell with deadnix/nixfmt/statix. Each host also gets `modules/options.nix` and `inputs` as special args. |
+| `flake.nix` | Declares inputs (nixpkgs-unstable, home-manager, treefmt-nix, umbriel, noctalia, noctalia-greeter, helium, millennium, bonfire), a `nixosConfigurations.<host>` for every directory in `hosts/`, the treefmt-based `formatter`, a `checks.lint` derivation, and a dev shell with deadnix/nixfmt/statix. Each host also gets `modules/options.nix` and `inputs` as special args. |
 | `flake.lock` | Exact input revisions. Regenerated automatically whenever inputs change. |
 | `statix.toml` | Excludes generated `hosts/*/hardware-configuration.nix` from linting. |
 
@@ -120,7 +119,6 @@ it asks for.
 | `dotfiles.apps.mime.enable` | `modules/home/apps/mime.nix` |
 | `dotfiles.apps.nautilus.enable` | `modules/home/apps/nautilus.nix` |
 | `dotfiles.apps.obsidian.enable` | `modules/system/packages/apps.nix` |
-| `dotfiles.apps.sonora.enable` | `modules/home/apps/sonora.nix` |
 | `dotfiles.apps.spotify.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.vesktop.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.vscode.enable` | `modules/home/apps/vscode.nix` |
@@ -208,7 +206,7 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | File | Purpose |
 | --- | --- |
 | `default.nix` | HM entry point: `home.username`/`homeDirectory` from `userName`, `home.sessionPath` (`~/.local/bin`, `~/.npm-global/bin`), `home.stateVersion`, `programs.home-manager.enable`, and imports for `./apps`, `./desktop`, `./packages.nix`, `./shell.nix` plus the Noctalia and Umbriel HM modules (imported unconditionally; their settings are what `dotfiles.desktop` gates). |
-| `packages.nix` | User-profile packages: awww, btop, fnm, grc, pokeget-rs. |
+| `packages.nix` | User-profile packages: ani-cli, awww, btop, fnm, grc, pokeget-rs. |
 | `shell.nix` | fish enabled, greeting disabled, `fnm env --use-on-cd`, grc plugin. |
 | `apps/default.nix` | Imports one file per opt-in app. |
 | `apps/bonfire.nix` | `programs.bonfire` (`apps.bonfire`): serves a WebGL new-tab page on `127.0.0.1:8420` and registers its `bonfire.css` template with Noctalia, so the page follows the wallpaper palette. |
@@ -216,7 +214,6 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | `apps/microfetch.nix` | `pkgs.microfetch` in the user profile (`apps.microfetch`); no Home Manager module exists. |
 | `apps/mime.nix` | MIME defaults for Celluloid/Loupe/Evince (`apps.mime`). |
 | `apps/nautilus.nix` | nautilus-python and the `open-in-kitty` script (`apps.nautilus`). |
-| `apps/sonora.nix` | Sonora music streaming client from the `sonora` flake input (`apps.sonora`). |
 | `apps/vscode.nix` | VS Code with vscodevim + markdown-all-in-one (`apps.vscode`). |
 | `desktop/noctalia.nix` | Noctalia shell settings: wallpaper enabled, the bar is translucent (`background_opacity = 0.5`) with compositor blur, and panels use the `glass` transparency mode. Every `desktop/*` module is behind `dotfiles.desktop`. |
 | `desktop/misc.nix` | `xdg-terminal-exec` default terminal = `kitty.desktop` and dconf `button-layout = ":"` (GNOME-style window controls on the left). |

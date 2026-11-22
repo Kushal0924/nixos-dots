@@ -86,7 +86,7 @@ imports = [
     │
     └── home/                     Home Manager (per user)
         ├── default.nix           identity, session path, stateVersion, HM imports
-        ├── packages.nix          awww, btop, fnm, grc, pokeget-rs
+        ├── packages.nix          ani-cli, awww, btop, fnm, grc, pokeget-rs
         ├── shell.nix             fish, fnm, grc
         ├── apps/                 bonfire, fastfetch, microfetch, mime, nautilus, vscode
         └── desktop/

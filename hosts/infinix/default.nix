@@ -56,6 +56,9 @@
       libreoffice = {
         enable = true;
       };
+      luciole = {
+        enable = true;
+      };
       microfetch = {
         enable = true;
       };
@@ -66,9 +69,6 @@
         enable = true;
       };
       obsidian = {
-        enable = true;
-      };
-      sonora = {
         enable = true;
       };
       vesktop = {

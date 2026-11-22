@@ -14,20 +14,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    noctalia.url = "github:noctalia-dev/noctalia/cachix";
 
-    umbriel = {
-      url = "github:noctalia-dev/umbriel";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    umbriel.url = "github:noctalia-dev/umbriel/cachix";
 
     noctalia-greeter = {
       url = "github:noctalia-dev/noctalia-greeter";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    luciole.url = "github:noctalia-dev/luciole/cachix";
 
     helium = {
       url = "github:AlvaroParker/helium-nix";
@@ -43,11 +39,6 @@
       # revision as the packaging so the RT3 source is used.
       inputs.millennium-src.url = "github:SteamClientHomebrew/Millennium/dee8e60f689b4f42b04eea0a4f4f063ecd8609aa";
       inputs.millennium-src.flake = false;
-    };
-
-    sonora = {
-      url = "github:sonorahq/sonora";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     bonfire = {

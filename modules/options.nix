@@ -58,6 +58,9 @@ in
       libreoffice = {
         enable = app "LibreOffice";
       };
+      luciole = {
+        enable = app "Luciole";
+      };
       microfetch = {
         enable = app "microfetch";
       };
@@ -69,9 +72,6 @@ in
       };
       obsidian = {
         enable = app "Obsidian";
-      };
-      sonora = {
-        enable = app "Sonora";
       };
       spotify = {
         enable = app "Spotify";

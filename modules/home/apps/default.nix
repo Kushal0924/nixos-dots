@@ -7,16 +7,16 @@
 
 {
   imports = [
-    inputs.sonora.homeModules.default
+    inputs.luciole.homeModules.default
     inputs.nhx.homeManagerModules.nhx
     ./bonfire-module.nix
     ./bonfire.nix
     ./fastfetch.nix
     ./helix.nix
+    ./luciole.nix
     ./microfetch.nix
     ./mime.nix
     ./nautilus.nix
-    ./sonora.nix
     ./vscode.nix
   ];
 }

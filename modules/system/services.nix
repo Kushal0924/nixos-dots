@@ -17,6 +17,9 @@
     power-profiles-daemon.enable = true;
     upower.enable = true;
 
+    # Trash and remote folders for file managers such as Nautilus and Luciole.
+    gvfs.enable = true;
+
     # The power button is handled by the session shell's menu instead of logind.
     logind.settings.Login.HandlePowerKey = "ignore";
   };
