@@ -54,6 +54,7 @@ lib.mkIf osConfig.dotfiles.apps.helix.enable {
         nil = {
           command = lib.getExe pkgs.nil;
           config.nil.formatting.command = [ (lib.getExe pkgs.nixfmt) ];
+          config.nil.nix.flake.autoArchive = true;
         };
         taplo = {
           command = lib.getExe pkgs.taplo;
