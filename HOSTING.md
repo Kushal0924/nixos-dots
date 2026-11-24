@@ -72,7 +72,7 @@ imports = [
     │   ├── home-manager.nix      HM as a NixOS module, points at ../home
     │   ├── nix.nix               flakes features, allowUnfree, direnv
     │   ├── packages/             environment.systemPackages
-    │   │   ├── apps.nix          gated GUI apps (krita, libreoffice, obsidian, spotify, vesktop)
+    │   │   ├── apps.nix          gated GUI apps (foliate, krita, libreoffice, obsidian, spotify, vesktop)
     │   │   ├── cli.nix           fetch, wget
     │   │   ├── dev.nix           gcc, git, lazygit, neovim, nh, nodejs, opencode, devenv
     │   │   ├── media.nix         file/image tools, nautilus, viewers, gvfs, pavucontrol
@@ -260,10 +260,11 @@ asks for.
 | `dotfiles.features.virtualization.enable` | `modules/features/virtualization.nix` (libvirt, QEMU/KVM, SPICE, virt-manager, `kvm`/`libvirtd` groups) | off |
 | `dotfiles.apps.bonfire.enable` | `modules/home/apps/bonfire.nix` (Bonfire new-tab page on `127.0.0.1:8420`) | off |
 | `dotfiles.apps.fastfetch.enable` | `modules/home/apps/fastfetch.nix` | off |
+| `dotfiles.apps.foliate.enable` | `modules/system/packages/apps.nix` (Foliate) | off |
 | `dotfiles.apps.krita.enable` | `modules/system/packages/apps.nix` (Krita) | off |
 | `dotfiles.apps.libreoffice.enable` | `modules/system/packages/apps.nix` (LibreOffice) | off |
 | `dotfiles.apps.microfetch.enable` | `modules/home/apps/microfetch.nix` (microfetch in the user profile) | off |
-| `dotfiles.apps.mime.enable` | `modules/home/apps/mime.nix` (Celluloid/Loupe/Evince defaults) | off |
+| `dotfiles.apps.mime.enable` | `modules/home/apps/mime.nix` (Celluloid/Loupe/Evince/Foliate defaults) | off |
 | `dotfiles.apps.nautilus.enable` | `modules/home/apps/nautilus.nix` (nautilus-python, open-in-kitty) | off |
 | `dotfiles.apps.obsidian.enable` | `modules/system/packages/apps.nix` (Obsidian) | off |
 | `dotfiles.apps.spotify.enable` | `modules/system/packages/apps.nix` (Spotify) | off |

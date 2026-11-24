@@ -42,7 +42,7 @@ Modular NixOS + Home Manager configuration, migrated and reorganized from `~/Nix
 │   │   ├── nix.nix               flakes features, allowUnfree, direnv
 │   │   ├── packages/             environment.systemPackages, split by role
 │   │   │   ├── default.nix
-│   │   │   ├── apps.nix          gated GUI apps (krita, libreoffice, obsidian, spotify, vesktop)
+│   │   │   ├── apps.nix          gated GUI apps (foliate, krita, libreoffice, obsidian, spotify, vesktop)
 │   │   │   ├── cli.nix           fetch, wget
 │   │   │   ├── dev.nix           git, gcc, neovim, nh, lazygit, nodejs, devenv, opencode
 │   │   │   ├── media.nix         file/image tools, nautilus + viewers, gvfs, pavucontrol
@@ -113,10 +113,11 @@ it asks for.
 | `dotfiles.features.virtualization.enable` | `modules/features/virtualization.nix` |
 | `dotfiles.apps.bonfire.enable` | `modules/home/apps/bonfire.nix` |
 | `dotfiles.apps.fastfetch.enable` | `modules/home/apps/fastfetch.nix` |
+| `dotfiles.apps.foliate.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.krita.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.libreoffice.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.microfetch.enable` | `modules/home/apps/microfetch.nix` |
-| `dotfiles.apps.mime.enable` | `modules/home/apps/mime.nix` |
+| `dotfiles.apps.mime.enable` | `modules/home/apps/mime.nix` (Celluloid/Loupe/Evince/Foliate defaults) |
 | `dotfiles.apps.nautilus.enable` | `modules/home/apps/nautilus.nix` |
 | `dotfiles.apps.obsidian.enable` | `modules/system/packages/apps.nix` |
 | `dotfiles.apps.spotify.enable` | `modules/system/packages/apps.nix` |
@@ -188,7 +189,7 @@ wpctl status                       # expect "Internal Microphone" under Sources
 | `services.nix` | NetworkManager, redistributable firmware, Bluetooth, power-profiles-daemon/upower/`HandlePowerKey = "ignore"`, and `security.polkit` plus the `polkit-gnome-authentication-agent-1` user unit. |
 | `users.nix` | Creates `${userName}` (normal user, fish shell, groups `wheel` + `networkmanager`, gets `tree`), and enables system-wide fish. Feature modules add their own groups (see `features/virtualization.nix`), so opting out never leaves a dangling group. |
 | `fonts.nix` | annotation-mono, JetBrains Mono Nerd Font, Departure Mono, Noto Color Emoji. |
-| `packages/*.nix` | `environment.systemPackages` grouped by purpose (see tree). `nix-ld.nix` also defines `programs.nix-ld` and its library list. `packages/apps.nix` holds the gated GUI apps (krita, libreoffice, obsidian, spotify, vesktop, WhatsApp via ZapFast). |
+| `packages/*.nix` | `environment.systemPackages` grouped by purpose (see tree). `nix-ld.nix` also defines `programs.nix-ld` and its library list. `packages/apps.nix` holds the gated GUI apps (foliate, krita, libreoffice, obsidian, spotify, vesktop, WhatsApp via ZapFast). |
 
 ### `modules/features` — opt-in capabilities
 

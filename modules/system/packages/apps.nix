@@ -26,7 +26,8 @@ let
 in
 {
   environment.systemPackages =
-    lib.optional apps.krita.enable pkgs.krita
+    lib.optional apps.foliate.enable pkgs.foliate
+    ++ lib.optional apps.krita.enable pkgs.krita
     ++ lib.optional apps.libreoffice.enable pkgs.libreoffice
     ++ lib.optional apps.obsidian.enable pkgs.obsidian
     ++ lib.optional apps.vesktop.enable pkgs.vesktop

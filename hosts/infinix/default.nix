@@ -47,6 +47,9 @@
       fastfetch = {
         enable = true;
       };
+      foliate = {
+        enable = true;
+      };
       helix = {
         enable = true;
       };

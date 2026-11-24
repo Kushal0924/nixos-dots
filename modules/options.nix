@@ -49,6 +49,9 @@ in
       fastfetch = {
         enable = app "fastfetch";
       };
+      foliate = {
+        enable = app "Foliate";
+      };
       helix = {
         enable = app "Helix";
       };

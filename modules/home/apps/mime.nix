@@ -31,6 +31,7 @@ lib.mkIf osConfig.dotfiles.apps.mime.enable {
       "image/x-icns" = [ "org.gnome.Loupe.desktop" ];
 
       # Documents
+      "application/epub+zip" = [ "com.github.johnfactotum.Foliate.desktop" ];
       "application/pdf" = [ "org.gnome.Evince.desktop" ];
       "application/postscript" = [ "org.gnome.Evince.desktop" ];
       "application/x-dvi" = [ "org.gnome.Evince.desktop" ];
