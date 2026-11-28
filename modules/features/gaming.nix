@@ -56,7 +56,8 @@ lib.mkIf config.dotfiles.features.gaming.enable {
     protonup-qt
     wineWow64Packages.staging
     winetricks
-    heroic
+    melonds
+    mgba
     antimicrox
 
     # Performance & HUD Tools
